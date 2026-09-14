@@ -1,50 +1,54 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de usuário</title>
-</head>
-<body>
-<form method="post" action="">
-    <!-- Campo nome -->
-    <label for="nome">Nome:</label>
-    <input type="text" name="nome" required>
+<!DOCTYPE html> 
+<html lang="pt-br"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Cadastro de usuário</title> 
+</head> 
+<body> 
 
-<!-- Campo Senha -->
-     <label for="senha">Nome:</label>
-    <input type="password" name="senha" required>
+<form method="post" action=""> 
 
-    <!-- Botão de enviar -->
-     <button type="submit">Cadastrar</button>
-</form>
+    <!-- Campo nome --> 
+    <label for="nome">Nome:</label> 
+    <input type="text" name="nome" required> 
+ 
+    <!-- Campo Senha --> 
+    <label for="senha">Senha:</label> 
+    <input type="password" name="senha" required> 
+ 
+    <!-- Botão de enviar --> 
+    <button type="submit">Cadastrar</button> 
 
-<!-- Lógica de cadastro -->
-<?php
-//Se o usuário enviou (Formulário) eu capturo os valores
-if ($_SERVER['REQUEST_METHOD'] =='POST') {
-    //recebo os valores
-    $nome = $_POST['nome'];
-    $senha = $_POST['senha'];
+</form> 
+ 
+<!-- Lógica de cadastro --> 
+<?php 
 
-    //Gravando a informação recebida em um arquivo de texto
-    // O "fopen" significa (file open ou abrir arquivo) e o 'a' append significa acrescentar
-    $arquivo = fopen('usuarios.txt', 'a');
+// Se o usuário enviou o formulário, eu capturo os valores 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') { 
 
-    //cria uma linha com o nome e senhas separados por;
-    $linha = $nome . ';' . $senha . '\n';
+    // Recebo os valores 
+    $nome = $_POST['nome']; 
+    $senha = $_POST['senha']; 
+ 
+    // Gravando a informação recebida em um arquivo de texto 
+    $arquivo = fopen('usuarios.txt', 'a'); 
+ 
+    // Cria uma linha com o nome e senha separados por ;
+    $linha = $nome . ';' . $senha . "\n"; 
+ 
+    // Escreve a linha no arquivo 
+    fwrite($arquivo, $linha); 
+ 
+    // Fecha o arquivo 
+    fclose($arquivo); 
+ 
+    // Mensagem de sucesso 
+    echo "<p>Usuario cadastrado com sucesso!</p>";
+} 
 
-    //Escreve a linha no arquivo (insere um fato)
-    fwrite($arquivo, $linha);
-
- //Fecha o arquivo
-    fclose($arquivo);
-
-//Mensagem de sucesso (feedback visivel para o usuario)
-echo '<p>Usuario cadastrado com sucesso!<p>'
-}
-?>
-
-    
-</body>
+?> 
+ 
+</body> 
 </html>
